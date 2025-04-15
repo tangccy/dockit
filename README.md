@@ -18,6 +18,7 @@ docker-compose up -d php nginx mysql redis
 
 如过构建失败，可以先拉去镜像再构建
 #####构建PHP示例：
+
 1.拉去php
 ```shell
 docker pull docker.io/library/php:8.2-fpm-alpine
