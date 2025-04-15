@@ -17,6 +17,7 @@ docker-compose up -d php nginx mysql redis
 ## 使用说明
 
 如过构建失败，可以先拉去镜像再构建
+
 #####构建PHP示例：
 
 1.拉去php
