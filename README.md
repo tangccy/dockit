@@ -34,4 +34,4 @@ docker.io/library/composer:latest
 ```shell
 docker-compose up -d --build php
 ```
-其它的也是看提示先去拉去基础镜像在构建
+其它的也是看提示先去拉取基础镜像在构建
