@@ -3,6 +3,8 @@
 ## 介绍
 php开发者常用docker开发环境
 
+如php、nginx、redis、mysql、mongodb、consul
+
 ## 安装教程
 
 创建环境变量文件
