@@ -9,11 +9,10 @@ php开发者常用docker开发环境
 ```shell
 copy .env.example .env
 ```
-构建容器示例
+按需构建容器示例
 ```shell
 docker-compose up -d php nginx mysql redis 
 ```
-按需创建
 
 ## 使用说明
 
@@ -31,4 +30,4 @@ docker.io/library/composer:latest
 ```shell
 docker-compose up -d --build php
 ```
-其他的也是看提示先去拉去基础镜像在构建
+其它的也是看提示先去拉去基础镜像在构建
