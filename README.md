@@ -22,15 +22,15 @@ docker-compose up -d php nginx mysql redis
 
 ##### 构建PHP示例：
 
-1.拉取php
+##### 1.拉取php
 ```shell
 docker pull docker.io/library/php:8.2-fpm-alpine
 ```
-2.拉取composer
+##### 2.拉取composer
 ```shell
 docker.io/library/composer:latest
 ```
-3.构建PHP容器
+##### 3.构建PHP容器
 ```shell
 docker-compose up -d --build php
 ```
