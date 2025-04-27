@@ -18,15 +18,15 @@ docker-compose up -d php nginx mysql redis
 
 ## 使用说明
 
-如过构建失败，可以先拉去镜像再构建
+如过构建失败，可以先拉取基础镜像再构建
 
 ##### 构建PHP示例：
 
-1.拉去php
+1.拉取php
 ```shell
 docker pull docker.io/library/php:8.2-fpm-alpine
 ```
-2.拉去composer
+2.拉取composer
 ```shell
 docker.io/library/composer:latest
 ```
