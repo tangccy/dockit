@@ -21,15 +21,17 @@ RUN apk add --no-cache --virtual .build-deps \
     unzip \
     curl \
     wget \
-    supervisor
+    supervisor \
+    bash \
+    oniguruma-dev \
+    libzip-dev
+
 
 # 安装 sockets、fileinfo、pcntl 等常用扩展
-RUN docker-php-ext-install sockets fileinfo pcntl
+RUN docker-php-ext-install sockets fileinfo pcntl pdo_mysql mbstring zip bcmath
 
 # 安装 PECL 扩展（自动生成 ini 配置）
-RUN pecl install redis && docker-php-ext-enable redis \
-    && pecl install mongodb && docker-php-ext-enable mongodb \
-    && pecl install protobuf && docker-php-ext-enable protobuf
+RUN pecl install redis mongodb protobuf && docker-php-ext-enable redis mongodb protobuf
 
 # 手动下载、编译、启用 swoole（来源是 pecl 包，不需要写 ini 文件）
 RUN pecl download swoole \
