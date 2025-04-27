@@ -52,11 +52,11 @@ WORKDIR /var/www
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 拷贝配置文件（你已有的）
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY php.ini /usr/local/etc/php/
+COPY php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY php/php.ini /usr/local/etc/php/
 
 # 暴露端口
 EXPOSE 9000
 
 # 启动 supervisord
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
