@@ -37,6 +37,7 @@ services:
     container_name: nginx
     ports:
       - "80:80"
+      - "8000-8499:8000-8499"
     volumes:
       - ${SRC_PATH}:/var/www
       - ./nginx/conf.d:/etc/nginx/conf.d
