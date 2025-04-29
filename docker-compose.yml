@@ -100,8 +100,12 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      -  ${GO_SRC_PATH}:/go/src
-    command: ["air"]
+      # 挂载 Go 项目相关目录
+      - ${GO_PATH}/pkg:/go/pkg
+      - ${GO_PATH}/src:/go/src
+      # 将容器的 /go/bin 挂载到宿主机的 ${GO_PATH}/bin，确保二进制文件共享
+      - ${GO_PATH}/bin:/go/bin
+#    command: ["air"]
     depends_on:
       - redis
       - mongo

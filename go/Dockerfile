@@ -1,17 +1,19 @@
 FROM golang:1.24-alpine
 
-# 安装 Air（热重载工具）
+
+ENV GOBIN=/usr/local/bin
+
+# 安装 Air（热重载工具），安装到/usr/local/bin里面
 RUN go install github.com/air-verse/air@latest
 
-# 设置 GOPATH
+# 设置开发默认的 GOPATH
 ENV GOPATH=/go
+ENV PATH=$PATH:$GOPATH/bin
 
-# 设置 rootpath
-ENV ROOTPATH=/go/src
-
-WORKDIR $ROOTPATH
+WORKDIR $GOPATH/src
 
 EXPOSE 3000
 
 # 使用 air 启动项目
 CMD ["air"]
+#CMD ["tail", "-f", "/dev/null"]
