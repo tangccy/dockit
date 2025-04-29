@@ -28,10 +28,10 @@ docker pull docker.io/library/php:8.2-fpm-alpine
 ```
 ##### 2.拉取composer
 ```shell
-docker.io/library/composer:latest
+docker pull docker.io/library/composer:latest
 ```
 ##### 3.构建PHP容器
 ```shell
-docker-compose up -d --build php
+docker-compose up -d --build php redis nginx mysql 
 ```
 其它的也是看提示先去拉取基础镜像在构建
