@@ -91,6 +91,24 @@ services:
     command: "agent -dev -client=0.0.0.0"
     networks:
       - app-network
+  go:
+    build:
+      context: ./go   # 注意，这里是放 Dockerfile 的地方，不是你本地源码
+      dockerfile: Dockerfile
+    image: 990921093/go-work:1.0
+    container_name: go
+    ports:
+      - "3000:3000"
+    volumes:
+      -  ${GO_SRC_PATH}:/go/src
+    command: ["air"]
+    depends_on:
+      - redis
+      - mongo
+      - mysql
+      - consul
+    networks:
+      - app-network
 
 networks:
   app-network:
