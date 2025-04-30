@@ -56,7 +56,6 @@ services:
     command: >
       redis-server
       --requirepass ${REDIS_PASSWORD}
-      --bind ${REDIS_BIND}
       --appendonly ${REDIS_APPEND_ONLY}
     networks:
       - app-network
