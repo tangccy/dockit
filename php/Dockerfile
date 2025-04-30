@@ -21,7 +21,6 @@ RUN apk add --no-cache --virtual .build-deps \
     unzip \
     curl \
     wget \
-    supervisor \
     bash \
     oniguruma-dev \
     libzip-dev
@@ -52,11 +51,10 @@ WORKDIR /var/www
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 拷贝配置文件（你已有的）
-COPY php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php/php.ini /usr/local/etc/php/
 
 # 暴露端口
 EXPOSE 9000
 
-# 启动 supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# 启动
+CMD ["php-fpm"]

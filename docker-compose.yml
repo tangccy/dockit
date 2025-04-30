@@ -12,23 +12,7 @@ services:
       - ${SRC_PATH}:/var/www
     depends_on:
       - redis
-      - mongo
       - mysql
-      - consul
-    environment:
-      - APP_NAME=${APP_NAME}
-      - APP_ENV=${APP_ENV}
-      - APP_DEBUG=${APP_DEBUG}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT}
-      - MONGO_HOST=${MONGO_HOST}
-      - MONGO_PORT=${MONGO_PORT}
-      - CONSUL_HOST=${CONSUL_HOST}
-      - CONSUL_PORT=${CONSUL_PORT}
     networks:
       - app-network
 
@@ -80,7 +64,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:3306"
     volumes:
       - ${DATA_PATH}/mysql:/var/lib/mysql
     networks:
@@ -90,8 +74,8 @@ services:
     image: consul:1.15
     container_name: consul
     ports:
-      - "8500:8500"
-      - "8600:8600/udp"
+      - "${CONSUL_PORT}:8500"
+      - "${CONSUL_UDP_PORT}:8600/udp"
     command: "agent -dev -client=0.0.0.0"
     networks:
       - app-network
