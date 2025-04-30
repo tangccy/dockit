@@ -91,9 +91,7 @@ services:
       - ${GO_PATH}:/go
     depends_on:
       - redis
-      - mongo
       - mysql
-      - consul
     networks:
       - app-network
 
