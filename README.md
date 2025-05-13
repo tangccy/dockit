@@ -54,6 +54,15 @@ source ~/.zshrc
 
 ### 构建跨平台镜像并推送到远程仓库
 参考文档：http://wiki.tjnccy.cn/page/display?document_id=231
+构建全部
 ```shell
 docker buildx bake --push
+```
+指定特定服务
+```shell
+docker buildx bake --push rabbitmq
+
+#强制不使用缓存
+docker buildx bake --push --no-cache rabbitmq
+
 ```
