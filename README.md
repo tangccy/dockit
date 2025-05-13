@@ -36,6 +36,22 @@ docker-compose up -d --build php redis nginx mysql
 ```
 其它的也是看提示先去拉取基础镜像在构建
 
+### 如果shell 终端还是不行，就设置终端代理
+步骤1
+```shell
+vim  ~/.zshrc
+```
+步骤2
+```shell
+export http_proxy=http://127.0.0.1:10808
+export https_proxy=http://127.0.0.1:10808
+export all_proxy=socks5://127.0.0.1:10808
+```
+步骤3
+```shell
+source ~/.zshrc
+```
+
 ### 构建跨平台镜像并推送到远程仓库
 参考文档：http://wiki.tjnccy.cn/page/display?document_id=231
 ```shell
