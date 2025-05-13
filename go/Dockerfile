@@ -1,6 +1,6 @@
 FROM golang:1.24-alpine
 
-
+ENV GOPROXY=https://goproxy.cn,direct
 ENV GOBIN=/usr/local/bin
 
 # 安装 Air（热重载工具），安装到/usr/local/bin里面

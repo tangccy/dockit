@@ -35,3 +35,9 @@ docker pull docker.io/library/composer:latest
 docker-compose up -d --build php redis nginx mysql 
 ```
 其它的也是看提示先去拉取基础镜像在构建
+
+### 构建跨平台镜像并推送到远程仓库
+参考文档：http://wiki.tjnccy.cn/page/display?document_id=231
+```shell
+docker buildx bake --push
+```
