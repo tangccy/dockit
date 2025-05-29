@@ -23,8 +23,16 @@ RUN apk add --no-cache --virtual .build-deps \
     wget \
     bash \
     oniguruma-dev \
-    libzip-dev
+    libzip-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev
 
+# 安装 gd 扩展
+RUN docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+    && docker-php-ext-install gd
 
 # 安装 sockets、fileinfo、pcntl 等常用扩展
 RUN docker-php-ext-install sockets fileinfo pcntl pdo_mysql mbstring zip bcmath
