@@ -39,7 +39,8 @@ RUN pecl download swoole \
     && ./configure --enable-openssl --enable-http2 --enable-sockets \
     && make -j$(nproc) && make install \
     && docker-php-ext-enable swoole \
-    && cd .. && rm -rf swoole-* swoole-*.tgz
+    && cd .. && rm -rf swoole-* swoole-*.tgz \
+    && echo "swoole.use_shortname=Off" > /usr/local/etc/php/conf.d/docker-swoole.ini
 
 # 清理构建依赖，减小体积
 RUN apk del .build-deps
