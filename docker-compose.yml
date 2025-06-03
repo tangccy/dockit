@@ -5,15 +5,13 @@ services:
       dockerfile: Dockerfile
     image: registry.cn-hangzhou.aliyuncs.com/kanin/php:1.0
     container_name: php
+    restart: always
     ports:
       - "9000:9000"   # php-fpm 服务端口（内部供 nginx 反向代理调用）
       - "9501:9501"   # swoole 服务端口
       - "8784:8784"
     volumes:
       - ${SRC_PATH}:/var/www
-    depends_on:
-      - redis
-      - mysql
     networks:
       - app-network
 
@@ -23,13 +21,12 @@ services:
       dockerfile: Dockerfile
     image: registry.cn-hangzhou.aliyuncs.com/kanin/nginx:1.0
     container_name: nginx
+    restart: always
     ports:
       - "80:80"
     volumes:
       - ${SRC_PATH}:/var/www
       - ./nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - php
     networks:
       - app-network
 
@@ -39,6 +36,7 @@ services:
       dockerfile: Dockerfile
     image: registry.cn-hangzhou.aliyuncs.com/kanin/redis:1.0
     container_name: redis
+    restart: always
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
@@ -101,9 +99,6 @@ services:
       - "3000:3000"
     volumes:
       - ${GO_PATH}:/go
-    depends_on:
-      - redis
-      - mysql
     networks:
       - app-network
 
