@@ -50,6 +50,9 @@ RUN pecl download swoole \
     && cd .. && rm -rf swoole-* swoole-*.tgz \
     && echo "swoole.use_shortname=Off" > /usr/local/etc/php/conf.d/docker-swoole.ini
 
+
+RUN apk add --no-cache nodejs npm && npm install -g pnpm
+
 # 清理构建依赖，减小体积
 RUN apk del .build-deps
 
