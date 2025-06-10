@@ -10,6 +10,7 @@ services:
       - "9000:9000"   # php-fpm 服务端口（内部供 nginx 反向代理调用）
       - "9501:9501"   # swoole 服务端口
       - "8784:8784"
+      - "2888:2888"
     volumes:
       - ${SRC_PATH}:/var/www
     networks:
