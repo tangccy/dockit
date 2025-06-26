@@ -52,6 +52,7 @@ services:
       dockerfile: Dockerfile
     image: registry.cn-hangzhou.aliyuncs.com/kanin/mongo:1.0
     container_name: mongo
+    restart: always
     ports:
       - "${MONGO_PORT}:27017"
     volumes:

@@ -1,6 +1,9 @@
 # 使用 Alpine 版本的 PHP 作为基础镜像
 FROM php:8.2-fpm-alpine
 
+# 替换 apk 源为阿里云，加快速度
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
 # 安装系统依赖（编译和运行都需要的）
 RUN apk add --no-cache --virtual .build-deps \
     autoconf \
@@ -38,17 +41,13 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install sockets fileinfo pcntl pdo_mysql mbstring zip bcmath
 
 # 安装 PECL 扩展（自动生成 ini 配置）
-RUN pecl install redis mongodb protobuf && docker-php-ext-enable redis mongodb protobuf
+RUN pecl install redis mongodb xlswriter protobuf && docker-php-ext-enable redis mongodb protobuf xlswriter
 
-# 手动下载、编译、启用 swoole（来源是 pecl 包，不需要写 ini 文件）
-RUN pecl download swoole \
-    && tar -xf swoole-*.tgz && cd swoole-* \
-    && phpize \
-    && ./configure --enable-openssl --enable-http2 --enable-sockets \
-    && make -j$(nproc) && make install \
+# 安装 swoole
+RUN pecl install swoole \
     && docker-php-ext-enable swoole \
-    && cd .. && rm -rf swoole-* swoole-*.tgz \
     && echo "swoole.use_shortname=Off" > /usr/local/etc/php/conf.d/docker-swoole.ini
+
 
 
 RUN apk add --no-cache nodejs npm && npm install -g pnpm
