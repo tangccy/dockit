@@ -44,9 +44,19 @@ RUN docker-php-ext-install sockets fileinfo pcntl pdo_mysql mbstring zip bcmath
 RUN pecl install redis mongodb xlswriter protobuf && docker-php-ext-enable redis mongodb protobuf xlswriter
 
 # 安装 swoole
-RUN pecl install swoole \
-    && docker-php-ext-enable swoole \
-    && echo "swoole.use_shortname=Off" > /usr/local/etc/php/conf.d/docker-swoole.ini
+ARG SWOOLE_VERSION=6.0.2
+
+RUN mkdir -p /tmp/pecl \
+  && curl -fSL "https://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz" -o /tmp/pecl/swoole.tgz \
+  && tar -xzf /tmp/pecl/swoole.tgz -C /tmp/pecl --strip-components=1 \
+  && cd /tmp/pecl \
+  && phpize \
+  && ./configure --enable-openssl \
+  && make -j$(nproc) && make install \
+  && docker-php-ext-enable swoole \
+  && echo "swoole.use_shortname=Off" > /usr/local/etc/php/conf.d/docker-swoole.ini \
+  && rm -rf /tmp/pecl
+
 
 
 
