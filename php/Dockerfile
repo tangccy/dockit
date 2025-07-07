@@ -41,7 +41,7 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install sockets fileinfo pcntl pdo_mysql mbstring zip bcmath
 
 # 安装 PECL 扩展（自动生成 ini 配置）
-RUN pecl install redis mongodb xlswriter protobuf && docker-php-ext-enable redis mongodb protobuf xlswriter
+RUN pecl install redis mongodb-1.19.1 xlswriter protobuf && docker-php-ext-enable redis mongodb protobuf xlswriter
 
 # 安装 swoole
 ARG SWOOLE_VERSION=6.0.2
