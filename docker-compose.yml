@@ -145,6 +145,8 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  # 挂载本地配置
       - ${DATA_PATH}/prometheus_data:/prometheus                   # 数据持久化
     restart: unless-stopped
+    networks:
+      - app-network
 
 
 networks:
