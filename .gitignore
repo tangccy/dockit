@@ -4,3 +4,4 @@
 .vscode/
 nginx/conf.d/*
 !nginx/conf.d/default.conf
+/prometheus/prometheus.yml
