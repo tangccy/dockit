@@ -66,3 +66,15 @@ docker buildx bake --push rabbitmq
 docker buildx bake --push --no-cache rabbitmq
 
 ```
+
+### 代理
+在docker-compose.yml服务里面添加环境变量,下面的只是例子，具体的代理地址请自行修改
+```yml
+environment:
+  - HTTP_PROXY=http://host.docker.internal:10808
+  - HTTPS_PROXY=http://host.docker.internal:10808
+  - NO_PROXY=localhost,127.0.0.1,docker.internal
+  - http_proxy=http://host.docker.internal:10808
+  - https_proxy=http://host.docker.internal:10808
+  - no_proxy=localhost,127.0.0.1,docker.internal
+```

@@ -6,6 +6,14 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/kanin/php:1.0
     container_name: php
     restart: always
+    environment:
+      - HTTP_PROXY=http://host.docker.internal:10808
+      - HTTPS_PROXY=http://host.docker.internal:10808
+      - NO_PROXY=localhost,127.0.0.1,docker.internal
+       # 新增小写形式（确保兼容gRPC等特定库）
+      - http_proxy=http://host.docker.internal:10808
+      - https_proxy=http://host.docker.internal:10808
+      - no_proxy=localhost,127.0.0.1,docker.internal
     ports:
       - "9000:9000"   # php-fpm 服务端口（内部供 nginx 反向代理调用）
       - "9501:9501"   # swoole 服务端口
@@ -166,6 +174,22 @@ services:
     restart: unless-stopped
     networks:
       - app-network
+
+  jenkins:
+    build: ./jenkins
+    container_name: jenkins
+    restart: always
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"     # Jenkins Web UI
+      - "50000:50000"   # Agent 连接端口
+    volumes:
+      - ${DATA_PATH}/jenkins_home:/var/jenkins_home     # Jenkins 数据持久化
+      - ${SRC_PATH}/jenkins_www:/var/jenkins_home/workspace    # Jenkins 数据持久化
+      - /var/run/docker.sock:/var/run/docker.sock  # 使用宿主机 Docker
+    environment:
+      - JAVA_OPTS=-Djava.awt.headless=true
 
 networks:
   app-network:

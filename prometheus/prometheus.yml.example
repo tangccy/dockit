@@ -13,3 +13,10 @@ scrape_configs:
   - job_name: 'hyperf'
     static_configs:
       - targets: ['localhost:9501']
+
+  - job_name: "php_activity"
+    scrape_interval: 5s  # 针对此job单独设置5秒间隔
+    metrics_path: "/metrics"
+    file_sd_configs:
+      - files:
+        - "./php_activity_targets.json"
