@@ -1,19 +1,21 @@
-FROM golang:1.24-alpine
+FROM golang:1.25-alpine
+
+# 设置默认用户为 root
+USER root
 
 ENV GOPROXY=https://goproxy.cn,direct
 ENV GOBIN=/usr/local/bin
+ENV PATH=$PATH:$GOBIN:$PATH
 
-# 安装 Air（热重载工具），安装到/usr/local/bin里面
+# 安装 bash、git、编译工具、curl，并加 ll 别名
+RUN apk add --no-cache bash git build-base curl \
+    && echo "alias ll='ls -alF'" >> /root/.bashrc
+
 RUN go install github.com/air-verse/air@latest
 
-# 设置开发默认的 GOPATH
-ENV GOPATH=/go
-ENV PATH=$PATH:$GOPATH/bin
-
-WORKDIR $GOPATH/src
-
+# 默认工作目录
+WORKDIR /go-work/src
 EXPOSE 3000
 
-# 使用 air 启动项目
-CMD ["air"]
-#CMD ["tail", "-f", "/dev/null"]
+# 保持容器运行
+CMD ["tail", "-f", "/dev/null"]

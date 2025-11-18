@@ -21,6 +21,7 @@ services:
       - "9503:9503"   # swoole 服务端口
     volumes:
       - ${SRC_PATH}:/var/www
+      - ${LOG_PATH}:/var/wwwlogs
     networks:
       - app-network
 
@@ -108,7 +109,7 @@ services:
     ports:
       - "3001:3000"
     volumes:
-      - ${GO_PATH}:/go
+      - ${GO_PATH}:/go-work
     networks:
       - app-network
 
@@ -178,7 +179,7 @@ services:
   jenkins:
     build: ./jenkins
     container_name: jenkins
-    restart: always
+    restart: unless-stopped
     privileged: true
     user: root
     ports:
