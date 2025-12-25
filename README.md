@@ -67,6 +67,25 @@ docker buildx bake --push --no-cache rabbitmq
 
 ```
 
+### 如果驱动没有安装
+```shell
+
+docker buildx create --name mybuilder --driver docker-container --use
+docker buildx inspect --bootstrap
+
+#完全可以随意起名字，这个 --name mybuilder 只是你给 Buildx 构建器实例起的标识名，方便你管理和切换。
+#关键点：
+#随意命名
+#例如：mybuilder、builder1、docker-bake 都可以，只要你喜欢且易记。
+#方便管理
+#你可以同时创建多个构建器实例，用不同名字：
+#docker buildx create --name amd64-builder --driver docker-container
+#docker buildx create --name arm64-builder --driver docker-container
+#然后通过：docker buildx use amd64-builder 或 docker buildx use arm64-builder 切换默认构建器。
+#避免重复.名称不要和已有构建器重复，否则会报错。
+```
+
+
 ### 代理
 在docker-compose.yml服务里面添加环境变量,下面的只是例子，具体的代理地址请自行修改
 ```yml

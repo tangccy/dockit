@@ -106,6 +106,9 @@ services:
       dockerfile: Dockerfile
     image: registry.cn-hangzhou.aliyuncs.com/kanin/go:1.0
     container_name: go
+    environment:
+      - GO111MODULE=on
+      - GOPROXY=https://goproxy.cn,direct
     ports:
       - "3001:3000"
     volumes:
