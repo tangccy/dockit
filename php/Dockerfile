@@ -41,7 +41,8 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install sockets fileinfo pcntl pdo_mysql mbstring zip bcmath
 
 # 安装 PECL 扩展（自动生成 ini 配置）
-RUN pecl install redis mongodb-1.19.1 xlswriter protobuf && docker-php-ext-enable redis mongodb protobuf xlswriter
+RUN pecl install redis mongodb-1.19.1 xlswriter protobuf grpc \
+    && docker-php-ext-enable redis mongodb protobuf xlswriter grpc
 
 # 安装 swoole
 ARG SWOOLE_VERSION=6.0.2
@@ -57,12 +58,13 @@ RUN mkdir -p /tmp/pecl \
   && echo "swoole.use_shortname=Off" > /usr/local/etc/php/conf.d/docker-swoole.ini \
   && rm -rf /tmp/pecl
 
+# 配置 gRPC fork 支持（放在 grpc 扩展的配置文件中）
+RUN echo "grpc.enable_fork_support = 1" > /usr/local/etc/php/conf.d/99-grpc.ini
 
-
-
+# 安装 nodejs 和 pnpm
 RUN apk add --no-cache nodejs npm && npm install -g pnpm
 
-# 清理构建依赖，减小体积
+# 清理构建依赖（在所有编译完成后）
 RUN apk del .build-deps
 
 # 设置工作目录
