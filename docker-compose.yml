@@ -195,6 +195,12 @@ services:
     environment:
       - JAVA_OPTS=-Djava.awt.headless=true
 
+  registry:
+    image: registry:2
+    container_name: registry
+    ports:
+      - "5000:5000"
+
 networks:
   app-network:
     driver: bridge
