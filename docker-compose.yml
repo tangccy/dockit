@@ -97,7 +97,9 @@ services:
     ports:
       - "${CONSUL_PORT}:8500"
       - "${CONSUL_UDP_PORT}:8600/udp"
-    command: "agent -dev -client=0.0.0.0"
+    command: "agent -server -bootstrap-expect=1 -ui -client=0.0.0.0 -data-dir=/consul/data"
+    volumes:
+      - ${DATA_PATH}/consul/data:/consul/data
     networks:
       - app-network
   go:

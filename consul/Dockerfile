@@ -5,4 +5,4 @@ FROM consul:1.15
 EXPOSE 8500 8600/udp
 
 # 设置容器启动时的命令
-CMD ["agent", "-dev", "-client=0.0.0.0"]
+CMD ["agent", "-client=0.0.0.0"]
